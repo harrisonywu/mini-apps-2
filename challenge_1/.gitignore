@@ -1,1 +1,4 @@
 public/app.js
+
+#bundle
+public/dist/bundle.js

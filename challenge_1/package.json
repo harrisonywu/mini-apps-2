@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack -d --watch",
+    "start": "npm run react && npm run server-dev",
+    "server-dev": "json-server data/db.json --static ./public",
+    "react": "webpack -p",
+    "react-dev": "webpack -d --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Harrison Wu",
