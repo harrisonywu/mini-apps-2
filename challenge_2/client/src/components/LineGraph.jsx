@@ -12,23 +12,15 @@ class LineGraph extends Component {
     const myChartRef = this.chartRef.current.getContext("2d");
 
     const bpiData = this.props.data.bpi;
-    const bpiDates = [];
-    const bpiPrices = [];
-    
-    for (var key in bpiData) {
-      bpiDates.push(key);
-      bpiPrices.push(bpiData[key]);
-    }
-
+ 
     new Chart(myChartRef, {
       type: "line",
       data: {
-        //Bring in data
-        labels: bpiDates,
+        labels: Object.keys(bpiData),
         datasets: [
           {
             label: "BTC Prices",
-            data: bpiPrices,
+            data: Object.values(bpiData),
           }
         ]
       },
@@ -44,6 +36,7 @@ class LineGraph extends Component {
             id="myChart"
             ref={this.chartRef}
           />
+          <a href="https://www.coindesk.com/price/bitcoin">Powered by CoinDesk</a>
         </div>
     )
   }
