@@ -8,18 +8,27 @@ class LineGraph extends Component {
 
   chartRef = React.createRef()
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     const myChartRef = this.chartRef.current.getContext("2d");
+
+    const bpiData = this.props.data.bpi;
+    const bpiDates = [];
+    const bpiPrices = [];
+    
+    for (var key in bpiData) {
+      bpiDates.push(key);
+      bpiPrices.push(bpiData[key]);
+    }
 
     new Chart(myChartRef, {
       type: "line",
       data: {
         //Bring in data
-        labels: ["Jan", "Feb", "March"],
+        labels: bpiDates,
         datasets: [
           {
-            label: "Sales",
-            data: [this.props.data.bpi["2019-04-08"], 67, 91],
+            label: "BTC Prices",
+            data: bpiPrices,
           }
         ]
       },

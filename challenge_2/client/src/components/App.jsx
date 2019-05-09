@@ -15,7 +15,6 @@ class App extends Component {
   componentDidMount() {
     axios.get('/api/coindesk')
       .then((data) => {
-        console.log('data returned: ', data.data)
         this.setState({
           data: data.data
         })
