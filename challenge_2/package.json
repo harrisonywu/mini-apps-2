@@ -8,8 +8,8 @@
     "start": "npm run react && npm run server",
     "react": "webpack -p",
     "react-dev": "webpack -d --watch",
-    "server": "node server.js",
-    "server-dev": "nodemon server.js"
+    "server": "node server/server.js",
+    "server-dev": "nodemon server/server.js"
   },
   "author": "",
   "license": "ISC",
