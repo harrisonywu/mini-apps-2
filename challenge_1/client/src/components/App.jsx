@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search.jsx';
+import Results from './Results.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -8,7 +9,7 @@ class App extends Component {
   
     this.state = {
       searchTerm: undefined,
-      searchResult: undefined,
+      searchResults: undefined,
     }
   }
 
@@ -22,20 +23,29 @@ class App extends Component {
     e.preventDefault();
     axios.get(`/events?q=${this.state.searchTerm}`)
       .then((search) => {
-        let searchResult = search.data;
+        let searchResults = search.data;
         this.setState({
-          searchResult
+          searchResults
         });
       })
   }
 
   render() {
+    let results;
+
+    if (!this.state.searchResults) {
+      results = <div>No Results Currently</div>
+    } else {
+      results = <Results searchResults={this.state.searchResults}/>
+    }
+
     return (
       <div>
         <Search
           currentSearchTerm={this.currentSearchTerm.bind(this)}
           searchJSON={this.searchJSON.bind(this)}
         />
+        {results}
       </div>
     )
   }
