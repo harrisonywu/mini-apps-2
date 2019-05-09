@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search.jsx';
-
-// I want to add a searc
+import axios from 'axios';
 
 class App extends Component {
   constructor() {
@@ -9,6 +8,7 @@ class App extends Component {
   
     this.state = {
       searchTerm: undefined,
+      searchResult: undefined,
     }
   }
 
@@ -18,12 +18,24 @@ class App extends Component {
     })
   }
 
+  searchJSON(e) {
+    e.preventDefault();
+    axios.get(`/events?q=${this.state.searchTerm}`)
+      .then((search) => {
+        let searchResult = search.data;
+        this.setState({
+          searchResult
+        });
+      })
+  }
 
   render() {
     return (
       <div>
-        Main App now rendering! asdfda
-        <Search currentSearchTerm={this.currentSearchTerm.bind(this)}/>
+        <Search
+          currentSearchTerm={this.currentSearchTerm.bind(this)}
+          searchJSON={this.searchJSON.bind(this)}
+        />
       </div>
     )
   }
