@@ -1,9 +1,13 @@
 import React from 'react';
 
 function Results(props) {
+  const { searchResults } = props;
+
   return (
     <div>
-      Results page rendering
+      {searchResults.map(result => {
+        return <div>{result.description}</div>;
+      })}
     </div>
   )
 }
