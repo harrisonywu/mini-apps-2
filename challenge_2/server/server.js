@@ -14,8 +14,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/api/coindesk', (req, res) => {
   axios.get('https://api.coindesk.com/v1/bpi/historical/close.json')
-    .then((data) => res.send(data.data))
-    .catch((err) => res.send('error retrieving CoinDesk info: ', err))
+    .then((btcPrices) => res.status(200).send(btcPrices.data))
+    .catch((err) => res.status(404).send('error retrieving CoinDesk info: ', err))
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
