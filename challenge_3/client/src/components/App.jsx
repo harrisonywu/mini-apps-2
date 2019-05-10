@@ -17,15 +17,12 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div>
-        <div>App rendering!</div>
         <div>Total Pins Knocked: {this.state.totalScore}</div>
         <Keypad 
           updateTotalScore={this.updateTotalScore.bind(this)}
         />
-
       </div>
     )
   }
