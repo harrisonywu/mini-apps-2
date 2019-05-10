@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Keypad from './Keypad.jsx'
+import Keypad from './Keypad.jsx';
+import Frames from './Frames.jsx';
+
 class App extends Component {
   constructor() {
     super();
@@ -7,13 +9,17 @@ class App extends Component {
     this.state = {
       totalScore: 0,
       currentFrame: 1,
+      pinsHit: 0,
     }
   }
 
   updateTotalScore(e) {
     let pinsHit = parseFloat(e.target.textContent);
     let newScore = this.state.totalScore += pinsHit;
-    this.setState({ totalScore: newScore })
+    this.setState(
+      { totalScore: newScore,
+        pinsHit }
+    );
   }
 
   render() {
@@ -23,6 +29,7 @@ class App extends Component {
         <Keypad 
           updateTotalScore={this.updateTotalScore.bind(this)}
         />
+        <Frames />
       </div>
     )
   }
