@@ -10,24 +10,53 @@ class App extends Component {
       totalScore: 0,
       currentFrame: 1,
       pinsHit: 0,
+      currentRoll: 1,
     }
   }
 
-  updateTotalScore(e) {
+  updateTotal(e) {
+    console.log('update total score')
+    let { totalScore } = this.state;
     let pinsHit = parseFloat(e.target.textContent);
-    let newScore = this.state.totalScore += pinsHit;
-    this.setState(
-      { totalScore: newScore,
-        pinsHit }
-    );
+    let newScore = totalScore += pinsHit;
+    
+    this.setState({ totalScore: newScore, pinsHit });
+  }
+
+  nextFrame(currentFrame) {
+    currentFrame++;
+    this.setState({
+      currentFrame: currentFrame,
+      currentRoll: 1,
+    })
+  }
+
+  updateTotalAndSwitchFrame(e, currentFrame) {
+    this.updateTotal(e);
+    this.nextFrame(currentFrame);
+  }
+  
+
+  increaseRoll() {
+    let { currentRoll } = this.state;
+    this.setState({
+      currentRoll: currentRoll++,
+    })
   }
 
   render() {
+    const { totalScore, currentFrame, pinsHit, currentRoll } = this.state;
+    const { updateTotal, nextFrame, increaseRoll, updateTotalAndSwitchFrame } = this;
+
     return (
       <div>
-        <div>Total Pins Knocked: {this.state.totalScore}</div>
+        <div>Current Frame: {currentFrame}</div>
+        <div>currentRoll: {currentRoll}</div>
+        <div>Total Pins Knocked: {totalScore}</div>
         <Keypad 
-          updateTotalScore={this.updateTotalScore.bind(this)}
+          updateTotal={updateTotal.bind(this)}
+          updateTotalAndSwitchFrame={updateTotalAndSwitchFrame.bind(this)}
+          currentFrame={currentFrame}
         />
         <Frames />
       </div>

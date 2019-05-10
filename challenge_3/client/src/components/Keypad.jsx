@@ -11,7 +11,7 @@ class Keypad extends Component {
   
   render() {
     // consider recreating buttons with a for loop from 0 - 10
-    const { updateTotalScore }= this.props;
+    const { updateTotal, nextFrame, updateTotalAndSwitchFrame, currentFrame } = this.props;
     
 
     return (
@@ -19,22 +19,22 @@ class Keypad extends Component {
       <h1>X Bowl</h1>
       <h1>Number of pins to hit</h1>
       <div>
-        <button onClick={updateTotalScore}>1</button>
-        <button onClick={updateTotalScore}>2</button>
-        <button onClick={updateTotalScore}>3</button>
+        <button onClick={updateTotal}>1</button>
+        <button onClick={updateTotal}>2</button>
+        <button onClick={updateTotal}>3</button>
       </div>
       <div>
-        <button onClick={updateTotalScore}>4</button>
-        <button onClick={updateTotalScore}>5</button>
-        <button onClick={updateTotalScore}>6</button>
+        <button onClick={updateTotal}>4</button>
+        <button onClick={updateTotal}>5</button>
+        <button onClick={updateTotal}>6</button>
       </div>
       <div>
-        <button onClick={updateTotalScore}>7</button>
-        <button onClick={updateTotalScore}>8</button>
-        <button onClick={updateTotalScore}>9</button>
+        <button onClick={updateTotal}>7</button>
+        <button onClick={updateTotal}>8</button>
+        <button onClick={updateTotal}>9</button>
       </div>
-        <button onClick={updateTotalScore}>0</button>
-        <button onClick={updateTotalScore}>10</button>
+        <button onClick={updateTotal}>0</button>
+        <button onClick={(e) => updateTotalAndSwitchFrame(e, currentFrame)}>10</button>
     </div>
     )
   }
