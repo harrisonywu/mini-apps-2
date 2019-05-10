@@ -15,10 +15,9 @@ class App extends Component {
 
   componentDidMount() {
     axios.get('/prices/BTC/last_month')
-    .then((data) => {
-      this.setState({
-        data: data.data
-      })
+    .then((btcPrices) => {
+      const { data } = btcPrices;
+      this.setState({ data })
     });
   }
     
@@ -31,25 +30,26 @@ class App extends Component {
       if (startDate && endDate) {
           axios.get(`/prices/BTC/${startDate}/${endDate}`)
           .then((btcPrices) => {
-            const {data} = btcPrices;
-            this.setState({data});
+            const { data } = btcPrices;
+            this.setState({ data });
           })
-          .catch((err) => console.log('error: ', err))
+          .catch((err) => console.log('error retrieving data by dates: ', err))
       };
     });
   }
  
   render() {
-
     let Graph;
+    
     !this.state.data ? Graph = <div>No data from CoinDesk currently.</div> : Graph = <LineGraph data={this.state.data} startDate={this.state['start-date']} endDate={this.state['end-date']}/>
+    
     return(
       <div>
         <h1>CoinStat</h1>
         <Search changeDateState={this.changeDateState.bind(this)}/>
         {Graph}
       </div>
-    )
+    );
   }
 }
 

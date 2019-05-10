@@ -2,7 +2,6 @@ import React from 'react';
 
 function Search(props) {
   const { changeDateState } = props;
-  // const something = props.something;
 
   return (
     <div>
