@@ -7,20 +7,27 @@ class App extends Component {
     super();
 
     this.state = {
-      totalScore: 0,
+      totalPinsHit: 0,
       currentFrame: 1,
       pinsHit: 0,
       currentRoll: 1,
     }
   }
 
+  componentDidUpdate() {
+    const { currentFrame } = this.state;
+    if (currentFrame === 10) {
+      // implement frame 10 logic.
+      //
+    }
+  }
+
   updateTotal(e) {
-    console.log('update total score')
-    let { totalScore } = this.state;
+    let { totalPinsHit } = this.state;
     let pinsHit = parseFloat(e.target.textContent);
-    let newScore = totalScore += pinsHit;
+    let newPinTotal = totalPinsHit += pinsHit;
     
-    this.setState({ totalScore: newScore, pinsHit });
+    this.setState({ totalPinsHit: newPinTotal, pinsHit });
   }
 
   nextFrame(currentFrame) {
@@ -36,27 +43,38 @@ class App extends Component {
     this.nextFrame(currentFrame);
   }
   
+  updateTotalAndIncreaseRoll(e, currentRoll, currentFrame) {
+    this.updateTotal(e);
+    this.increaseRoll(currentRoll, currentFrame);
+  }
 
-  increaseRoll() {
-    let { currentRoll } = this.state;
-    this.setState({
-      currentRoll: currentRoll++,
-    })
+  increaseRoll(currentRoll, currentFrame) {
+    currentRoll++;
+    if (currentRoll === 2) {
+      this.setState({ currentRoll })
+    } else { // roll count already exceeded
+      currentRoll = 1;
+      currentFrame++;
+      this.setState({ currentRoll, currentFrame })
+    }
   }
 
   render() {
-    const { totalScore, currentFrame, pinsHit, currentRoll } = this.state;
-    const { updateTotal, nextFrame, increaseRoll, updateTotalAndSwitchFrame } = this;
+    const { totalPinsHit, currentFrame, pinsHit, currentRoll } = this.state;
+    const { updateTotal, nextFrame, updateTotalAndIncreaseRoll, updateTotalAndSwitchFrame } = this;
 
     return (
       <div>
         <div>Current Frame: {currentFrame}</div>
         <div>currentRoll: {currentRoll}</div>
-        <div>Total Pins Knocked: {totalScore}</div>
+        <div>Total Pins Knocked: {totalPinsHit}</div>
         <Keypad 
-          updateTotal={updateTotal.bind(this)}
+          // updateTotal={updateTotal.bind(this)}
+          updateTotalAndIncreaseRoll={updateTotalAndIncreaseRoll.bind(this)}
           updateTotalAndSwitchFrame={updateTotalAndSwitchFrame.bind(this)}
           currentFrame={currentFrame}
+          currentRoll={currentRoll}
+          // increaseRoll={increaseRoll.bind(this)}
         />
         <Frames />
       </div>

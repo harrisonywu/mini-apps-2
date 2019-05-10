@@ -11,7 +11,7 @@ class Keypad extends Component {
   
   render() {
     // consider recreating buttons with a for loop from 0 - 10
-    const { updateTotal, nextFrame, updateTotalAndSwitchFrame, currentFrame } = this.props;
+    const { updateTotal, updateTotalAndIncreaseRoll, updateTotalAndSwitchFrame, currentFrame, currentRoll } = this.props;
     
 
     return (
@@ -19,21 +19,21 @@ class Keypad extends Component {
       <h1>X Bowl</h1>
       <h1>Number of pins to hit</h1>
       <div>
-        <button onClick={updateTotal}>1</button>
-        <button onClick={updateTotal}>2</button>
-        <button onClick={updateTotal}>3</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>1</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>2</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>3</button>
       </div>
       <div>
-        <button onClick={updateTotal}>4</button>
-        <button onClick={updateTotal}>5</button>
-        <button onClick={updateTotal}>6</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>4</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>5</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>6</button>
       </div>
       <div>
-        <button onClick={updateTotal}>7</button>
-        <button onClick={updateTotal}>8</button>
-        <button onClick={updateTotal}>9</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>7</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>8</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>9</button>
       </div>
-        <button onClick={updateTotal}>0</button>
+        <button onClick={(e) => updateTotalAndIncreaseRoll(e, currentRoll, currentFrame)}>0</button>
         <button onClick={(e) => updateTotalAndSwitchFrame(e, currentFrame)}>10</button>
     </div>
     )
