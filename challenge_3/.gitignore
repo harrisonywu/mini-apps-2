@@ -1,1 +1,5 @@
-public/app.js
+# node modules
+node_modules
+
+# bundle
+public/bundle.js
