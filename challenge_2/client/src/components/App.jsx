@@ -40,8 +40,9 @@ class App extends Component {
   }
  
   render() {
+
     let Graph;
-    !this.state.data ? Graph = <div>No data from CoinDesk currently.</div> : Graph = <LineGraph data={this.state.data}/>
+    !this.state.data ? Graph = <div>No data from CoinDesk currently.</div> : Graph = <LineGraph data={this.state.data} startDate={this.state['start-date']} endDate={this.state['end-date']}/>
     return(
       <div>
         <h1>CoinStat</h1>

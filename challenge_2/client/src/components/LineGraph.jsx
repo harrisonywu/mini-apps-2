@@ -10,14 +10,17 @@ class LineGraph extends Component {
   }
 
   componentDidMount() {
-    this.createGraph();
+    let currentTitle = 'BTC: Price in the Last Month'
+    this.createGraph(currentTitle);
   }
   
   componentDidUpdate() {
-    this.createGraph();
+    const { startDate, endDate } = this.props;
+    let currentTitle = `BTC: Price between ${startDate} and ${endDate}`
+    this.createGraph(currentTitle);
   }
   
-  createGraph() {
+  createGraph(titleName) {
     let myChartRef = this.chartRef.current.getContext("2d");
     let bpiData = this.props.data.bpi;
   
@@ -35,7 +38,7 @@ class LineGraph extends Component {
       options: {
         title: {
           display: true,
-          text: 'BTC: Last Month',
+          text: titleName,
           position: 'top',
           fontSize: 30
         }
@@ -46,7 +49,6 @@ class LineGraph extends Component {
   render() {
     return (
         <div>
-          <div>HELP{this.props.data.bpi['2019-04-10']}</div>
           <canvas
             id="myChart"
             ref={this.chartRef}
