@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/coindesk')
+    axios.get('/prices/BTC/last_month')
     .then((data) => {
       this.setState({
         data: data.data
@@ -23,14 +23,20 @@ class App extends Component {
   }
     
   changeDateState(e) {
-    const startDate = this.state['start-date'];
-    const endDate = this.state['end-date'];
-
     this.setState({
       [e.target.name]: e.target.value
-    })
-    
-    
+    }, () => {
+      let startDate = this.state['start-date'];
+      let endDate = this.state['end-date'];
+      if (startDate && endDate) {
+          axios.get(`/prices/BTC/${startDate}/${endDate}`)
+          .then((btcPrices) => {
+            const {data} = btcPrices;
+            this.setState({data});
+          })
+          .catch((err) => console.log('error: ', err))
+      };
+    });
   }
  
   render() {

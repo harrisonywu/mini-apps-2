@@ -4,14 +4,22 @@ import Chart from 'chart.js';
 class LineGraph extends Component {
   constructor(props) {
     super(props);
+    
     this.chartRef = React.createRef();
+    this.createGraph = this.createGraph.bind(this);
   }
 
-
   componentDidMount() {
-    const myChartRef = this.chartRef.current.getContext("2d");
+    this.createGraph();
+  }
   
-    const bpiData = this.props.data.bpi;
+  componentDidUpdate() {
+    this.createGraph();
+  }
+  
+  createGraph() {
+    let myChartRef = this.chartRef.current.getContext("2d");
+    let bpiData = this.props.data.bpi;
   
     new Chart(myChartRef, {
       type: "line",
@@ -38,6 +46,7 @@ class LineGraph extends Component {
   render() {
     return (
         <div>
+          <div>HELP{this.props.data.bpi['2019-04-10']}</div>
           <canvas
             id="myChart"
             ref={this.chartRef}
