@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LineGraph from './LineGraph.jsx'
+import LineGraph from './LineGraph.jsx';
+import Search from './Search.jsx';
 
 import axios from 'axios';
 
@@ -8,26 +9,38 @@ class App extends Component {
     super();
 
     this.state = {
-      data: null,
+      data: undefined,
     }
   }
 
   componentDidMount() {
     axios.get('/api/coindesk')
-      .then((data) => {
-        this.setState({
-          data: data.data
-        })
-      } 
-      )
+    .then((data) => {
+      this.setState({
+        data: data.data
+      })
+    });
+  }
+    
+  changeDateState(e) {
+    const startDate = this.state['start-date'];
+    const endDate = this.state['end-date'];
+
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+    
+    
   }
  
   render() {
+    let Graph;
+    !this.state.data ? Graph = <div>No data from CoinDesk currently.</div> : Graph = <LineGraph data={this.state.data}/>
     return(
       <div>
         <h1>CoinStat</h1>
-        <LineGraph data={this.state.data}/>
-      
+        <Search changeDateState={this.changeDateState.bind(this)}/>
+        {Graph}
       </div>
     )
   }
